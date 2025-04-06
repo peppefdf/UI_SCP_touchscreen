@@ -237,8 +237,8 @@ def CalcRoutes_module(puntos,m_buses,root_dir,CO2km):
       #hwy_speeds = {"residential": 20, "unclassified": 30, "maxspeed": 100 }
       #hwy_speeds = {"residential": 80, "unclassified": 60, "maxspeed": 100 }
       #hwy_speeds = {"primary": 100, "residential": 60, "unclassified": 50, "maxspeed": 100 }
-      #hwy_speeds = {"motorway": 100, "trunk": 100, "primary": 100, "residential": 60, "unclassified": 50, "maxspeed": 100 }
-      hwy_speeds = {"motorway": 120, "trunk": 100, "primary": 100, "residential": 50, "unclassified": 50, "maxspeed": 120 }
+      hwy_speeds = {"motorway": 100, "trunk": 100, "primary": 100, "residential": 60, "unclassified": 50, "maxspeed": 100 }
+      #hwy_speeds = {"motorway": 120, "trunk": 100, "primary": 100, "residential": 50, "unclassified": 50, "maxspeed": 120 }
       G = ox.add_edge_speeds(G, hwy_speeds)
       #G = ox.add_edge_speeds(G)
       G = ox.add_edge_travel_times(G)
@@ -340,9 +340,9 @@ def CalcRoutes_module(puntos,m_buses,root_dir,CO2km):
       for i in stops:
               model.add_constraint(x[i,i] == 0)
 
-      Ms = int(n/m_buses) # Ms = max number of stops visited by each bus.
+      #Ms = int(n/m_buses) # Ms = max number of stops visited by each bus.
                           # Choose Ms = n/m_buses for a balanced load distribution among buses
-      #Ms = n
+      Ms = n
       for i in stops[1:]:
           for j in stops[1:]:
               if i != j:
@@ -578,4 +578,14 @@ def CalcRoutes_module(puntos,m_buses,root_dir,CO2km):
           #print()
 
       #print(coords_routes)
+      #root_dir + 'data/input_data_MCM/'
+      import csv
+
+      with open(root_dir + 'data/input_data_MCM/' + 'routes_coordinates.csv', 'w', newline='') as csvfile:
+        writer = csv.writer(csvfile)
+        for i, route in enumerate(coords_routes):
+            writer.writerow([i])  # route index
+            writer.writerows(route)
+            writer.writerow([])  # empty row to separate routes
+
       return ruta_EZ0, coords_routes, G, length_routes

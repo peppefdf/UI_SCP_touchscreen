@@ -1489,8 +1489,14 @@ class MiscFunctions:
         trips_ez, trips_ez_base=pp.pp(Transh,trips_ez, routeOptDone, CowCoords, CowDays, NremWork, NremDays, root_dir) 
         prediction=prediction.predict(trips_ez, trips_ez_base, routeOptDone, co2km_car, co2km_eCar, co2km_bus, co2km_train, bus_train_ratio, NeCar, root_dir)  
 
+        print()
+        print('check if condition for saving baseline scenario is met...:')
+        print(routeOptDone, CowDays, NremDays)
         if (routeOptDone == 0) and (CowDays==0) and (NremDays==0):
+            print()
+            print('Saving baseline scenario..., check directory:')
+            print(root_dir + MCM_data_dir + 'baseline_scenario.csv')
+            print()
             prediction.to_csv(root_dir + MCM_data_dir + 'baseline_scenario.csv', index=False)
-            #print()
 
         return prediction

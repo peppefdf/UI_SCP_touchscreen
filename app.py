@@ -83,7 +83,8 @@ app = Dash(name = 'SCP_app', server = server, url_base_pathname='/dash/',
 timestamp_id = str(int(time.time()))
 #root_dir = 'C:/Users/gfotidellaf/repositories/UI_SCP/assets/'
 #root_dir = '/home/cslgipuzkoa/virtual_machine_disk/UI_SCP/assets/'
-root_dir = '/home/cslgipuzkoa/virtual_machine_disk/UI_SCP_touchscreen/assets/'
+root_dir = 'C:/Users/gfotidellaf/repositories/UI_SCP_touchscreen_local/assets/'
+#root_dir = '/home/cslgipuzkoa/virtual_machine_disk/UI_SCP_touchscreen/assets/'
 
 print('Code restarted!')
 
@@ -1141,7 +1142,8 @@ def update_user_ip(modified_timestamp, pathname, user_ip):
     #root_dir = 'C:/Users/gfotidellaf/repositories/UI_SCP/assets/'
     #root_dir = '/home/cslgipuzkoa/virtual_machine_disk/UI_SCP/assets/'
     #root_dir = '/home/cslgipuzkoa/virtual_machine_disk/UI_SCP_test/assets/'
-    root_dir = '/home/cslgipuzkoa/virtual_machine_disk/UI_SCP_touchscreen/assets/'
+    root_dir = 'C:/Users/gfotidellaf/repositories/UI_SCP_touchscreen_local/assets/'
+    #root_dir = '/home/cslgipuzkoa/virtual_machine_disk/UI_SCP_touchscreen/assets/'
     #new_root_dir = root_dir[:-1] + '_' + timestamp_id + '/'
     #new_root_dir = root_dir[:-1] + '_' + user_id + '/'
     #new_root_dir = root_dir[:-1] + '_' + user_ip + '/'
@@ -1437,6 +1439,9 @@ def run_MCM_callback(root_dir, workerData, stored_scenarios, NremDays, NremWork,
       else:
         result.to_csv(root_dir + MCM_data_dir + 'BL_plus_PT.csv')
         temp = pd.concat([baseline_scenario[['Mode','Coworking_days']], result['Mode']], axis=1, ignore_index=True)
+        temp_all = pd.concat([baseline_scenario, result[['Mode']].rename(columns={'Mode': 'Mode2'})], axis=1)
+        temp_all.to_csv(root_dir + MCM_data_dir + 'BL_plus_PT_all.csv', index=False)
+
 
       temp.columns = ['Mode1','Coworking_days','Mode2']
       temp_df = temp.loc[(temp['Mode1']=='Car') & (temp['Mode2']=='PT') & (temp['Coworking_days']==0)].dropna()

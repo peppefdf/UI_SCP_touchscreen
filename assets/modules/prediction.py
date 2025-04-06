@@ -177,6 +177,7 @@ def predict(df, df_base, routeOptDone, co2km_car, co2km_ecar, co2km_bus, co2km_t
     #gdf['weighted_n']  = gdf.apply(calculate_indicator_n, axis=1)
     gdf['n_close_stops']  = gdf.apply(calculate_indicator_n, axis=1)
 
-    
+    MCM_data_dir = 'data/input_data_MCM/'
+    gdf.to_csv(root_dir + MCM_data_dir + "Data_after_prediction.csv",index=False)
     #gdf.to_csv('C:/Users/gfotidellaf/repositories/UI_SCP/assets/data/Data_after_predict.csv', index=False)
     return gdf
